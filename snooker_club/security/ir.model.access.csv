@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_snooker_club,access.snooker.club,model_snooker_club,base.group_user,1,1,1,1
+access_players_data,access.players.data,model_players_data,base.group_user,1,1,1,1
+access_logs_of_players,access.logs.of.players,model_logs_of_players,base.group_user,1,1,1,1

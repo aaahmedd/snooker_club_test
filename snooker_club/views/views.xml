@@ -1,0 +1,223 @@
+<odoo>
+    <data>
+
+    <data>
+        <record model="ir.ui.view" id="ac_form_view">
+            <field name="name">snooker.club.form</field>
+            <field name="model">snooker.club</field>
+            <field name="arch" type="xml">
+                <form string="Snooker Club Dashboard" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <h1>Snooker Club Dashboard</h1>
+                            </group>
+                            <group>
+                                <group>
+                                </group>
+                                <group>
+                                </group>
+                            </group>
+                        </group>
+                        <group col="4">
+                            <group>
+                                <h2>Entity</h2>
+                            </group>
+                            <group>
+                              <span>
+                                <h2>Import</h2>
+                                From Snooker API To Odoo
+                              </span>
+                            </group>
+                            <group>
+
+                            </group>
+                        </group>
+                        <group col="4">
+                            <group>
+                                <strong>Players</strong>
+                            </group>
+                            <group>
+                                <field name="players_check" nolabel="1"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <group>
+                                    <button name="get_players_data" type="object" string="Start" class="oe_highlight"
+                                    icon="fa-refresh fa-2x" style="width:50%"/>
+                                </group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Sync Logs">
+                                <field name="logs_line">
+                                    <tree string="Transaction Lines" editable="bottom" create="false" delete="false" limit="15">
+                                        <field name="execution_date_time" readonly="1"/>
+                                        <field name="user_id" readonly="1"/>
+                                        <field name="no_of_players_synced" readonly="1"/>
+                                        <field name="sync_status" readonly="1"/>
+                                    </tree>
+                                </field>
+                        </page>
+                        </notebook>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="ac_action">
+            <field name="name">Dashboard</field>
+            <field name="res_model">snooker.club</field>
+            <field name="view_mode">form,tree</field>
+<!--            <field name="res_id" ref="my_record_01"/>-->
+            <field name="target">inline</field>
+        </record>
+
+        <record id="view_player_data_graph" model="ir.ui.view">
+            <field name="name">players.data.graph</field>
+            <field name="model">players.data</field>
+            <field name="arch" type="xml">
+                <graph string="Players" type="bar" stacked="1">
+                    <field name="no_of_wins" />
+                    <field name="no_of_losses" />
+                    <field name="country" />
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="whatsapp_logs_view">
+            <field name="name">players.data.pivot</field>
+            <field name="model">players.data</field>
+            <field name="arch" type="xml">
+                <pivot string="Players">
+<!--                    <field name="date_order" type="row"/>-->
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="date_of_birth"/>
+                    <field name="country" type="row"/>
+                    <field name="twitter"/>
+                    <field name="no_of_wins"  type="col"/>
+                    <field name="no_of_losses"  type="col"/>
+
+                </pivot>
+            </field>
+        </record>
+
+        <record id="view_cleverreach_campaign_kanban" model="ir.ui.view">
+            <field name="name">players.data.kanban</field>
+            <field name="model">players.data</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="name"/>
+                    <field name="country"/>
+                    <field name="gender"/>
+                    <field name="date_of_birth"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_vignette oe_semantic_html_override">
+
+                                <div class="oe_kanban_details">
+                                    <h4>
+                                        <a type="open">
+                                            <field name="name"/>
+                                        </a>
+                                    </h4>
+                                    <div name="tags"/>
+                                    <ul>
+                                        <li>
+                                            <b>Country:</b>
+                                            <field name="country"/>
+                                        </li>
+                                        <li>
+                                            <b>Gender:</b>
+                                            <field name="gender"/>
+                                        </li>
+                                        <li>
+                                            <b>Wins::</b>
+                                            <field name="no_of_wins"/>
+                                            <b>Losses::</b>
+                                            <field name="no_of_losses"/>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+
+            </field>
+        </record>
+
+
+
+        <record model="ir.ui.view" id="ac_campaign_form_view">
+            <field name="name">players.data.form</field>
+            <field name="model">players.data</field>
+            <field name="arch" type="xml">
+                <form string="Players">
+                    <header>
+                        <button name="get_picture" type="object" string="View Picture" class="oe_highlight"/>
+                        <button name="get_bio_page" type="object" string="View Bio Page"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="gender"/>
+                                <field name="date_of_birth"/>
+                                <field name="country"/>
+                            </group>
+                            <group>
+                                <field name="twitter"/>
+                                <field name="no_of_wins"/>
+                                <field name="no_of_losses"/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ac_campaign_tree_view">
+            <field name="name">ac.tree</field>
+            <field name="model">players.data</field>
+            <field name="arch" type="xml">
+                <tree string="Players">
+                    <field name="name"/>
+                    <field name="gender"/>
+                    <field name="date_of_birth"/>
+                    <field name="country"/>
+                    <field name="twitter"/>
+                    <field name="no_of_wins"/>
+                    <field name="no_of_losses"/>
+                    <button name="get_picture" type="object"
+                                                        string="Picture" class="oe_highlight"/>
+                    <button name="get_bio_page" type="object"
+                                                        string="Bio Page"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="ac_action_2">
+            <field name="name">Players</field>
+            <field name="res_model">players.data</field>
+            <field name="view_mode">tree,form,kanban,pivot,graph</field>
+        </record>
+
+
+    </data>
+
+        <menuitem id="main_ac_menu"  name="Snooker Club"/>
+        <menuitem id="ac_ui_menu" name="Dashboard" parent="main_ac_menu" action="ac_action"/>
+        <menuitem id="ac_ui_menu_2" name="Players" parent="main_ac_menu" action="ac_action_2"/>
+
+
+    </data>
+</odoo>
